@@ -11,7 +11,7 @@ public class AuthFilter extends HttpFilter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         String userLink = (String)((HttpServletRequest)req).getSession().getAttribute("user");
-        if (!userLink.contains("/user/") || userLink.endsWith("/user/")) {
+        if (userLink == null || !userLink.contains("/user/") || userLink.endsWith("/user/")) {
             req.getRequestDispatcher("login.jsp").forward(req, res);
         }
         chain.doFilter(req, res);
